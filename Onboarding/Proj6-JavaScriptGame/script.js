@@ -23,22 +23,27 @@ class NumberGame {
     generateProblem() {
         this.numbers = [4, 4, 8, 6];
         // TODO: Generate a new problem
-        // const goal = 24;
-        // const numberMax = 9;
-        // const isIntOnly = true;
+        const goal = 24;
+        const numberMax = 148;
+        const isIntOnly = true;
 
-        // let a, b, c, d, e, f, op1, op2, op3;
-        // do {
-        //     let [a, b, op1] = this.splitNumber(goal);
-        // } while (!this.validNumbers(a, b, numberMax, isIntOnly));
+        let a, b, c, d, e, f, op1, op2, op3;
+        do {
+            [a, b, op1] = this.splitNumber(goal);
+        } while (!this.validNumbers(a, b, numberMax, isIntOnly));
         
-        // [c, d, op2] = this.splitNumber(b);
-        // [e, f, op3] = this.splitNumber(a);
+        do {
+            [c, d, op2] = this.splitNumber(b);
+        } while (!this.validNumbers(c, d, numberMax, isIntOnly));
 
-        // console.log(`${goal} = ${c} ${op2} ${d} ${op1} ${e} ${op3} ${f}`);
+        do {
+            [e, f, op3] = this.splitNumber(a);
+        } while (!this.validNumbers(e, f, numberMax, isIntOnly));
 
-        // return [c, d, e, f];
-        return this.numbers;
+        console.log(`${goal} = (${d} ${op2} ${c}) ${op1} (${f} ${op3} ${e})`);
+
+        return [c, d, e, f];
+        // return this.numbers;
     }
 
     validNumbers(a, b, numberMax, isIntOnly) {
@@ -150,25 +155,25 @@ class NumberGame {
         if (isActive) {
             switch (op) {
                 case "add":
-                    console.log("Addition");
+                    // console.log("Addition");
                     this.operator = "+";
                     this.toggleOperators(false);
                     operator.classList.add("active");
                     break;
                 case "sub":
-                    console.log("Subtraction");
+                    // console.log("Subtraction");
                     this.operator = "-";
                     this.toggleOperators(false);
                     operator.classList.add("active");
                     break;
                 case "mult":
-                    console.log("Multiplication");
+                    // console.log("Multiplication");
                     this.operator = "*";
                     this.toggleOperators(false);
                     operator.classList.add("active");
                     break;
                 case "div":
-                    console.log("Division");
+                    // console.log("Division");
                     this.operator = "/";
                     this.toggleOperators(false);
                     operator.classList.add("active");
@@ -202,7 +207,7 @@ class NumberGame {
     }
 
     printStuff() {
-        console.log("aCard: " + this.aCard + "\n a: " + this.a + "\n bCard: " + this.bCard + "\n b: " + this.b + "\n operator: " + this.operator);
+        // console.log("aCard: " + this.aCard + "\n a: " + this.a + "\n bCard: " + this.bCard + "\n b: " + this.b + "\n operator: " + this.operator);
     }
 
     toggleOperators(isActive) {
