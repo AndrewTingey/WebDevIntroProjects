@@ -1,0 +1,182 @@
+:root{
+    --active: #ff1616;
+    --border: #5c5c5c;
+    --card: #ff1616a8;
+    --card-border: #9e0000;
+    --operator1: rgb(215, 177, 50);
+    --operator2: rgb(65, 142, 220);
+    --operator3: rgb(196, 174, 84);
+    --operator4: rgb(54, 189, 50);
+    --backop1: rgb(194, 158, 38);
+    --backop2: rgb(37, 106, 175);
+    --backop3: rgb(203, 122, 32);
+    --backop4: rgb(42, 149, 38);
+}
+
+body{
+    font-family: Arial, sans-serif;
+    color: white;
+}
+    
+#main_container {
+    background-color: #5c5c5c;
+    border: #5c5c5c solid 5px;
+    height: 700px;
+    width: 700px;
+    position: absolute;
+    left: 50%;
+    top: 10%;
+    transform: translate(-50%, 0%);
+}
+
+#left_container {
+    background-color: #00367d;
+    height: 700px;
+    width: 200px;
+    position: absolute;
+    left: 0;
+    top: 0;
+}
+
+button#undo {
+    position: absolute;
+    background-color: #004bad;
+    width: 200px;
+    height: 150px;
+    top: 500px;
+    color: white;
+    border: none;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    cursor: pointer;
+}
+
+button#undo:hover {
+    background-color: #00367d;
+}
+
+img#undo_img {
+    width: 100px;
+    height: 100px;
+    margin-top: 10px;
+    filter: invert(100%);
+}
+
+#right_container {
+    background-color: #00224e;
+    height: 700px;
+    width: 500px;
+    position: absolute;
+    left: 200px;
+    top: 0;
+}
+
+.card {
+    background-color: var(--card);
+    width: 200px;
+    height: 160px;
+    margin: 10px;
+    display: inline-block;
+    border-radius: 10px;
+    border-bottom: #9e0000 solid 5px;
+    cursor: pointer;
+    text-align: center;
+    line-height: 160px;
+    font-size: 100px;
+    font-weight: 800;
+    font: black;
+    text-shadow: #5c5c5c 3px 3px 1px;
+}
+
+.card.active {
+    background-color: var(--active);
+}
+
+#card1 {
+    position: absolute;
+    top: 50px;
+    left: 20px;
+}
+
+#card2 {
+    position: absolute;
+    top: 50px;
+    right: 20px;
+}
+
+#card3 {
+    position: absolute;
+    top: 250px;
+    left: 20px;
+}
+
+#card4 {
+    position: absolute;
+    top: 250px;
+    right: 20px;
+}
+
+#operators {
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    top: 500px;
+    width: 100%;
+}
+
+.operator {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    cursor: pointer;
+    text-align: center;
+    line-height: 100px;
+    font-size: 100px;
+    font-weight: 800;
+}
+
+.operator1 {
+    left: 20px;
+    top: 20px;
+    border: var(--operator1) solid 5px;
+    background-color: var(--backop1);
+    color: var(--operator1);
+    box-shadow: 0px 7px var(--backop1);
+}
+
+.operator2 {
+    left: 140px;
+    top: 20px;
+    line-height: 80px;
+    border: var(--operator2) solid 5px;
+    background-color: var(--backop2);
+    color: var(--operator2);
+    box-shadow: 0px 7px var(--backop2);
+}
+
+.operator3 {
+    left: 280px;
+    top: 20px;
+    border: var(--operator3) solid 5px;
+    background-color: var(--backop3);
+    color: var(--operator3);
+    transform: rotate(45deg);
+    box-shadow: 4.95px 4.95px var(--backop3);
+}
+
+.operator4 {
+    left: 420px;
+    top: 20px;
+    border: var(--operator4) solid 5px;
+    background-color: var(--backop4);
+    color: var(--operator4);
+    border: rgb(0, 211, 0) solid 5px;
+    box-shadow:  0px 7px var(--backop4);
+}
+
+.operator.active {
+    border: white solid 5px;
+    color: white;
+}

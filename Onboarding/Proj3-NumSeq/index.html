@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Number Sequences</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
+</head>
+
+<body>
+
+    <h1>Fill in the missing number: </h1>
+    <h2 id="sequence">1, 2, 3, 4, 5, 6, 7, 8, 9, 10, ?</h2>
+
+    <form id="form"></form>
+        <input type="text" id="inputField" placeholder="Enter your answer">
+        <button type="submit" id="submit" onclick="handleSubmit()">Submit</button>
+        <button type="button" id="new" onclick="generateNewProblem()">New Problem</button>
+    </form>
+    <p id="result"></p>
+
+    <h2>Results:</h2>
+
+    <table id="table">
+        <tr>
+            <th>Question Number</th>
+            <td id="questionNumber">1</td>
+        </tr>
+        <tr>
+            <th>Right</th>
+            <td id="numRight">0</td>
+        </tr>
+        <tr>
+            <th>Wrong</th>
+            <td id="numWrong">0</td>
+        </tr>
+        <tr>
+            <th>Percent Right</th>
+            <td id="percentRight">0%</td>
+        </tr>
+    </table>
+
+    <script src="script.js"></script>
+</body>
+</html>
