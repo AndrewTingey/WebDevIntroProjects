@@ -20,6 +20,7 @@ class NumberGame {
         this.operator = null;
         this.previousMoves = [];
         this.timeLimit = 60;
+        this.startTimer();
     }
 
     generateProblem() {
@@ -126,6 +127,35 @@ class NumberGame {
         this.operator4.addEventListener("click", this.operatorClicked);
         this.undoButton.addEventListener("click", this.undoButtonClicked);
     }
+
+    startTimer() {
+        // $("#timer_value").animate({
+        //     // width: "0%"
+        // }, {
+        //     duration: this.timeLimit * 1000,
+        //     easing: "linear",
+        //     complete: () => {
+        //         console.log("Game Over");
+        //         alert("Game Over, Your score is: " + this.score);
+        //     }
+        // });
+    }
+
+    // startTimer() {
+    //     let timer = $("#timer_value");
+    //     let time = this.timeLimit;
+    //     let interval = setInterval(() => {
+    //         if (time == 0) {
+    //             clearInterval(interval);
+    //             console.log("Game Over");
+    //             alert("Game Over, Your score is: " + this.score);
+    //         } else {
+    //             timer.html(time);
+    //             time--;
+    //         }
+    //     }, 1000);
+    // }
+    
 
     cardClicked(event) {
         let card = event.target;
@@ -332,6 +362,9 @@ class NumberGame {
         }
         if (bValue == 24) {
             let finalCard = this.bCard;
+            $(finalCard).css("background-image", "var(--image-win)");
+            $(finalCard).css("border", "var(--color-win)");
+            
             let scoreBoard = document.getElementById("score_value");
             let cardPos = finalCard.getBoundingClientRect();
             let targetPos = scoreBoard.getBoundingClientRect();
