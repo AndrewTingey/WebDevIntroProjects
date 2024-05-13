@@ -94,17 +94,19 @@ class NumberGame {
         this.card3.classList.remove("active");
         this.card4.classList.remove("active");
 
-        this.card1.style = "";
-        $(this.card1).css({ top: 0 }).animate({ top: 50 }, 500, "easeOutBounce").promise().done(() => {
-            this.card2.style = "";
-            $(this.card2).css({ top: 0 }).animate({ top: 50 }, 500, "easeOutBounce").promise().done(() => {
-                this.card3.style = "";
-                $(this.card3).css({ top: 200 }).animate({ top: 250 }, 500, "easeOutBounce").promise().done(() => {
-                    this.card4.style = "";
-                    $(this.card4).css({ top: 200 }).animate({ top: 250 }, 500, "easeOutBounce");
+        if (this.score != 0) {
+            this.card1.style = "";
+            $(this.card1).css({ top: 0 }).animate({ top: 50 }, 500, "easeOutBounce").promise().done(() => {
+                this.card2.style = "";
+                $(this.card2).css({ top: 0 }).animate({ top: 50 }, 500, "easeOutBounce").promise().done(() => {
+                    this.card3.style = "";
+                    $(this.card3).css({ top: 200 }).animate({ top: 250 }, 500, "easeOutBounce").promise().done(() => {
+                        this.card4.style = "";
+                        $(this.card4).css({ top: 200 }).animate({ top: 250 }, 500, "easeOutBounce");
+                    });
                 });
             });
-        });
+        }
     }
 
     setListeners() {
