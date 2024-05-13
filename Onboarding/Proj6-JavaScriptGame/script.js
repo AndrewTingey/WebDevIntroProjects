@@ -9,6 +9,7 @@ class NumberGame {
         this.operator3 = document.getElementById("operator3");
         this.operator4 = document.getElementById("operator4");
         this.undoButton = document.getElementById("undo");
+        this.score = 0;
         this.numbers = this.generateProblem();
         this.setNumbers();
         this.setListeners();
@@ -18,20 +19,22 @@ class NumberGame {
         this.b = null;
         this.operator = null;
         this.previousMoves = [];
+        this.timeLimit = 60;
     }
 
     generateProblem() {
-        this.numbers = [4, 4, 8, 6];
+        // this.numbers = [4, 4, 8, 6];
         // TODO: Generate a new problem
         const goal = 24;
         const numberMax = 148;
         const isIntOnly = true;
+        this.previousMoves = [];
 
         let a, b, c, d, e, f, op1, op2, op3;
         do {
             [a, b, op1] = this.splitNumber(goal);
         } while (!this.validNumbers(a, b, numberMax, isIntOnly));
-        
+
         do {
             [c, d, op2] = this.splitNumber(b);
         } while (!this.validNumbers(c, d, numberMax, isIntOnly));
@@ -48,9 +51,9 @@ class NumberGame {
 
     validNumbers(a, b, numberMax, isIntOnly) {
         if (isIntOnly) {
-            return (a % 1 === 0 && b % 1 === 0 && a <= numberMax && b <= numberMax);
+            return (a % 1 === 0 && b % 1 === 0 && a <= numberMax && b <= numberMax && a !== 0 && b !== 0);
         } else {
-            return (a <= numberMax && b <= numberMax);
+            return (a <= numberMax && b <= numberMax && a !== 0 && b !== 0);
         }
     }
 
@@ -75,10 +78,33 @@ class NumberGame {
     }
 
     setNumbers(numbers) {
+        document.getElementById("score_value").innerHTML = this.score;
         this.card1.innerHTML = this.numbers[0];
         this.card2.innerHTML = this.numbers[1];
         this.card3.innerHTML = this.numbers[2];
         this.card4.innerHTML = this.numbers[3];
+
+        this.card1.classList.remove("popIn");
+        this.card2.classList.remove("popIn");
+        this.card3.classList.remove("popIn");
+        this.card4.classList.remove("popIn");
+
+        this.card1.classList.remove("active");
+        this.card2.classList.remove("active");
+        this.card3.classList.remove("active");
+        this.card4.classList.remove("active");
+
+        this.card1.style = "";
+        $(this.card1).css({ top: 0 }).animate({ top: 50 }, 500, "easeOutBounce").promise().done(() => {
+            this.card2.style = "";
+            $(this.card2).css({ top: 0 }).animate({ top: 50 }, 500, "easeOutBounce").promise().done(() => {
+                this.card3.style = "";
+                $(this.card3).css({ top: 200 }).animate({ top: 250 }, 500, "easeOutBounce").promise().done(() => {
+                    this.card4.style = "";
+                    $(this.card4).css({ top: 200 }).animate({ top: 250 }, 500, "easeOutBounce");
+                });
+            });
+        });
     }
 
     setListeners() {
@@ -154,33 +180,31 @@ class NumberGame {
         let operator = event.target;
         let op = operator.getAttribute("value");
         let isActive = operator.classList.contains("active");
-        if (isActive) {
-            switch (op) {
-                case "add":
-                    // console.log("Addition");
-                    this.operator = "+";
-                    this.toggleOperators(false);
-                    operator.classList.add("active");
-                    break;
-                case "sub":
-                    // console.log("Subtraction");
-                    this.operator = "-";
-                    this.toggleOperators(false);
-                    operator.classList.add("active");
-                    break;
-                case "mult":
-                    // console.log("Multiplication");
-                    this.operator = "*";
-                    this.toggleOperators(false);
-                    operator.classList.add("active");
-                    break;
-                case "div":
-                    // console.log("Division");
-                    this.operator = "/";
-                    this.toggleOperators(false);
-                    operator.classList.add("active");
-                    break;
-            }
+        switch (op) {
+            case "add":
+                // console.log("Addition");
+                this.operator = "+";
+                this.toggleOperators(false);
+                operator.classList.add("active");
+                break;
+            case "sub":
+                // console.log("Subtraction");
+                this.operator = "-";
+                this.toggleOperators(false);
+                operator.classList.add("active");
+                break;
+            case "mult":
+                // console.log("Multiplication");
+                this.operator = "*";
+                this.toggleOperators(false);
+                operator.classList.add("active");
+                break;
+            case "div":
+                // console.log("Division");
+                this.operator = "/";
+                this.toggleOperators(false);
+                operator.classList.add("active");
+                break;
         }
     }
 
@@ -280,19 +304,63 @@ class NumberGame {
         $(aCard).animate({
             left: "+=" + dx,
             top: "+=" + dy
-        }, 1000, () => {
-            aCard.style.visibility = "hidden";
-            bCard.innerHTML = eval(this.a + this.operator + this.b);
-            bCard.classList.remove("active");
-            bCard.classList.add("popIn");
-            this.aCard = null;
-            this.bCard = null;
-            this.a = null;
-            this.b = null;
-            this.operator = null;
-            this.toggleOperators(false);
+        }, {
+            duration: 1000,
+            easing: "easeInCubic",
+            complete: () => { // animation is done
+                aCard.style.visibility = "hidden";
+                let cardValue = eval(this.a + this.operator + this.b);
+                bCard.innerHTML = cardValue;
+                this.checkWin(cardValue);
+                bCard.classList.remove("active");
+                bCard.classList.add("popIn");
+                this.aCard = null;
+                this.bCard = null;
+                this.a = null;
+                this.b = null;
+                this.operator = null;
+                this.toggleOperators(false);
+            }
         });
     }
+
+    checkWin(bValue) {
+        if (this.previousMoves.length != 3) {
+            return false;
+        }
+        if (bValue == 24) {
+            let finalCard = this.bCard;
+            let scoreBoard = document.getElementById("score_value");
+            let cardPos = finalCard.getBoundingClientRect();
+            let targetPos = scoreBoard.getBoundingClientRect();
+            let dx = targetPos.left - cardPos.left;
+            let dy = targetPos.top - cardPos.top;
+            $(finalCard).animate({
+                left: "+=" + dx,
+                top: "+=" + dy,
+                height: "50px",
+                width: "100px",
+                fontsize: "1000px",
+                lineHeight: "50px"
+            }, {
+                duration: 1000,
+                easing: "easeInCubic",
+                complete: () => {
+                    $(finalCard).css("visibility", "hidden");
+                    this.score++;
+                    this.numbers = this.generateProblem();
+                    this.setNumbers();
+                    console.log("Score: " + this.score);
+                }
+            });
+
+            console.log("WIN");
+            return true;
+        }
+        return false;
+
+    }
+
 }
 
 let game = new NumberGame();
