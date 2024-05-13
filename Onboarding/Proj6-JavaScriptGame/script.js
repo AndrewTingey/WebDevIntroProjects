@@ -83,6 +83,7 @@ class NumberGame {
 
     setListeners() {
         this.animateCombine = this.animateCombine.bind(this);
+        this.animateCombineJQuery = this.animateCombineJQuery.bind(this);
         this.cardClicked = this.cardClicked.bind(this);
         this.operatorClicked = this.operatorClicked.bind(this);
         this.undoButtonClicked = this.undoButtonClicked.bind(this);
@@ -138,7 +139,8 @@ class NumberGame {
                         bCard: this.bCard,
                         bValue: this.b
                     });
-                    this.animateCombine(card);
+                    // this.animateCombine(card);
+                    this.animateCombineJQuery(card);
                 } else {
                     console.error('aCard or bCard is not defined');
                 }
@@ -263,6 +265,33 @@ class NumberGame {
                 frame++;
             }
         }, 5);
+    }
+
+    animateCombineJQuery = (bCard) => {
+        let aCard = this.aCard;
+        if (!aCard || !bCard) {
+            console.error('aCard or bCard is not defined');
+            return;
+        }
+        let aCardPos = aCard.getBoundingClientRect();
+        let bCardPos = bCard.getBoundingClientRect();
+        let dx = bCardPos.left - aCardPos.left;
+        let dy = bCardPos.top - aCardPos.top;
+        $(aCard).animate({
+            left: "+=" + dx,
+            top: "+=" + dy
+        }, 1000, () => {
+            aCard.style.visibility = "hidden";
+            bCard.innerHTML = eval(this.a + this.operator + this.b);
+            bCard.classList.remove("active");
+            bCard.classList.add("popIn");
+            this.aCard = null;
+            this.bCard = null;
+            this.a = null;
+            this.b = null;
+            this.operator = null;
+            this.toggleOperators(false);
+        });
     }
 }
 
