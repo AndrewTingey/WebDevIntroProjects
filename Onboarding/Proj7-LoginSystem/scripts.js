@@ -57,5 +57,3 @@ function loadSlides() {
         console.error('Error:', error);
     });
 }
-
-loadSlides();
