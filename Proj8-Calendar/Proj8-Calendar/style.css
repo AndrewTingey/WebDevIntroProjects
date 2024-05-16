@@ -1,0 +1,45 @@
+#calendar {
+    width: 90%;
+    margin: 40px auto;
+    border: 5px solid #ccc;
+    min-width: 450px;
+}
+
+#calendar_header {
+    display: flex;
+    justify-content: space-between;
+    background-color: #333;
+    color: #fff;
+    text-align: center;
+    padding: 10px;
+}
+
+#calendar_weekdays {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    background-color: #444;
+    color: #fff;
+    text-align: center;
+    padding-top: 10px;
+    padding-bottom: 2px;
+}
+
+#month_container {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+}
+
+.day {
+    border: 1px solid #ccc;
+    height: 80px;
+}
+
+.date {
+    border: 1px solid #ccc;
+    border-left: none;
+    padding: 0 4px;
+}
+
+.no-month {
+    background-color: #d5d5d5b2;
+}
