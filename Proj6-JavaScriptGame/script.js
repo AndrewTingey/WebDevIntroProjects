@@ -322,7 +322,7 @@ class NumberGame {
             left: "+=" + dx,
             top: "+=" + dy
         }, {
-            duration: 1000,
+            duration: 400,
             easing: "easeInCubic",
             complete: () => { // animation is done
                 aCard.style.visibility = "hidden";
@@ -363,7 +363,7 @@ class NumberGame {
                 fontsize: "1000px",
                 lineHeight: "50px"
             }, {
-                duration: 1000,
+                duration: 700,
                 easing: "easeInCubic",
                 complete: () => {
                     $(finalCard).css("visibility", "hidden");
