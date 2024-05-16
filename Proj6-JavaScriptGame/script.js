@@ -20,12 +20,9 @@ class NumberGame {
         this.operator = null;
         this.previousMoves = [];
         this.timeLimit = 60;
-        this.startTimer();
     }
 
     generateProblem() {
-        // this.numbers = [4, 4, 8, 6];
-        // TODO: Generate a new problem
         const goal = 24;
         const numberMax = 148;
         const isIntOnly = true;
@@ -47,7 +44,6 @@ class NumberGame {
         console.log(`${goal} = (${d} ${op2} ${c}) ${op1} (${f} ${op3} ${e})`);
 
         return [c, d, e, f];
-        // return this.numbers;
     }
 
     validNumbers(a, b, numberMax, isIntOnly) {
@@ -129,32 +125,21 @@ class NumberGame {
     }
 
     startTimer() {
-        // $("#timer_value").animate({
-        //     // width: "0%"
-        // }, {
-        //     duration: this.timeLimit * 1000,
-        //     easing: "linear",
-        //     complete: () => {
-        //         console.log("Game Over");
-        //         alert("Game Over, Your score is: " + this.score);
-        //     }
-        // });
-    }
+        this.score = 0;
+        this.generateProblem();
+        this.setNumbers();
 
-    // startTimer() {
-    //     let timer = $("#timer_value");
-    //     let time = this.timeLimit;
-    //     let interval = setInterval(() => {
-    //         if (time == 0) {
-    //             clearInterval(interval);
-    //             console.log("Game Over");
-    //             alert("Game Over, Your score is: " + this.score);
-    //         } else {
-    //             timer.html(time);
-    //             time--;
-    //         }
-    //     }, 1000);
-    // }
+        
+        $("#timer_value").text(this.timeLimit);
+        this.interval = setInterval(() => {
+            this.timeLimit--;
+            $("#timer_value").text(this.timeLimit);
+            if (this.timeLimit == 0) {
+                clearInterval(this.interval);
+                alert("Game Over\n You Scored: " + this.score + "\n Refresh to play again.");
+            }
+        }, 1000);
+    }
     
 
     cardClicked(event) {
@@ -399,3 +384,9 @@ class NumberGame {
 }
 
 let game = new NumberGame();
+
+const startButton = document.getElementById("game_mode_button");
+startButton.addEventListener("click", () => {
+    game.startTimer();
+    document.getElementById("game_mode").style.display = "none";
+});
