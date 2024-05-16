@@ -1,3 +1,11 @@
+<?php
+  session_start();
+  // if the user is not already logged in, redirect to the login page
+  if (!isset($_SESSION['username'])) {
+    header('Location: index.php');
+    exit();
+  }
+?>
 <!DOCTYPE html>
 <html>
 
@@ -10,7 +18,7 @@
 <body>
     <div id="calendar">
         <div id="user_header">
-            <span>Andrew Tingey</span>
+            <span><?php echo $_SESSION['first_name'] . " " . $_SESSION['last_name']; ?></span>
             <button id="logout" onclick="window.location.href='logout.php'">Logout</button>
         </div>
         <div id="calendar_header">
