@@ -16,6 +16,21 @@
 </head>
 
 <body>
+    <div id="addEventOverlay">
+        <div id="addEventForm">
+            <div id="addEventHeader">
+                <span>Add Event</span><span id="eventDate">2024-5-15</span>
+                <button id="closeAddEvent" onclick="closeAddEvent()">X</button>
+            </div>
+            <div id="addEventBody">
+                <input type="text" id="eventTitle" placeholder="Event Title">
+                <input type="text" id="eventTime" placeholder="Event Time">
+                <button id="addEventButton" onclick="addEvent()">Add Event</button>
+            </div>
+        </div>
+    </div>
+
+
     <div id="calendar">
         <div id="user_header">
             <span><?php echo $_SESSION['first_name'] . " " . $_SESSION['last_name']; ?></span>
