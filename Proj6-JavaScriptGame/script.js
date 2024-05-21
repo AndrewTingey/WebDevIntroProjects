@@ -194,6 +194,7 @@ class NumberGame {
     }
 
     operatorClicked(event) {
+        if (this.a == null) return;
         let operator = event.target;
         let op = operator.getAttribute("value");
         let isActive = operator.classList.contains("active");
